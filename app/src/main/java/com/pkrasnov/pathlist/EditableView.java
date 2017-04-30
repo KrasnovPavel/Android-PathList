@@ -23,6 +23,7 @@ public class EditableView extends TextView
         finally{
             a.recycle();
         }
+        MainActivity.EditableViewController.addView(this);
         
     }
     

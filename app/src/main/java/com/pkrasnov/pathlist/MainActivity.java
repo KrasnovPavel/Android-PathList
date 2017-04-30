@@ -107,6 +107,27 @@ public class MainActivity extends Activity
                 checkComma();
             }
         }
+        
+        public static void nextView()
+        {
+            if (choosedViewNumber() < views.size()-1)
+            {
+                views.get(choosedViewNumber()+1).setChoose(true);
+            }
+        }
+        
+        public static void previousView()
+        {
+            if (choosedViewNumber() > 0)
+            {
+                views.get(choosedViewNumber()-1).setChoose(true);
+            }
+        }
+        
+        private static int choosedViewNumber()
+        {
+            return views.indexOf(choosedView);
+        }
 
         private static List<EditableView> views = new ArrayList<EditableView>();
         public static TextView nameView;
@@ -128,9 +149,6 @@ public class MainActivity extends Activity
         
         EditableViewController.nameView = (TextView)findViewById(R.id.viewName);
         EditableViewController.commaButton = (Button)findViewById(R.id.buttonComma);
-        EditableViewController.addView(editableView);
-        EditableViewController.addView(editableView1);
-        EditableViewController.addView((EditableView)findViewById(R.id.test2));
         editableView.setChoose(true);
     }
     
@@ -142,5 +160,15 @@ public class MainActivity extends Activity
     public void onBackspaceButtonClick(View view)
     {
         EditableViewController.removeNumber();
+    }
+    
+    public void onNextButtonClick(View view)
+    {
+        EditableViewController.nextView();
+    }
+    
+    public void onPreviousButtonClick(View view)
+    {
+        EditableViewController.previousView();
     }
 }
