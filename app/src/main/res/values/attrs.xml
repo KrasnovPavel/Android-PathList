@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources> 
+    <declare-styleable name="EditableView">
+        <attr name="viewName" format="string"/>
+    </declare-styleable>
+    
+    <attr name="EditableViewTheme" format="reference"/>
+    
+</resources>

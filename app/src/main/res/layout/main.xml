@@ -5,13 +5,15 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:gravity="fill">
+	android:gravity="fill"
+	android:id="@+id/mainLayout">
 
 	<com.pkrasnov.pathlist.EditableView
-		android:text="EditableView"
-        android:layout_width="match_parent"
-        android:id="@+id/EditableView"
-		style="@style/EditableViewTheme"/>
+		android:theme="@style/EditableViewStyle"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        app:viewName="test2"
+        android:id="@+id/test2"/>
 
 	<TextView
 		android:layout_width="match_parent"

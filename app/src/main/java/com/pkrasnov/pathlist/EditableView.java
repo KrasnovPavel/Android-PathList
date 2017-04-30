@@ -4,25 +4,57 @@ import android.widget.TextView;
 import android.content.*;
 import android.util.*;
 import android.graphics.*;
+import android.view.*;
+import android.content.res.*;
 
 
 public class EditableView extends TextView
 {
-    public EditableView(Context context) 
+    private void initAttrs(Context context, AttributeSet attrs)
     {
-        super(context);
+        TypedArray a = context.getTheme().obtainStyledAttributes(attrs, 
+                       R.styleable.EditableView,
+                       0, 0);
+        try{
+            name = a.getString(R.styleable.EditableView_viewName);
+        }
+        finally{
+            a.recycle();
+        }
+        
     }
-    public EditableView(Context context, AttributeSet attrs) 
-    {
-        super(context, attrs);
-    }
+    
     public EditableView(Context context, AttributeSet attrs, int defStyleAttr) 
     {
         super(context, attrs, defStyleAttr);
+        initAttrs(context, attrs);
     }
+    
+    public EditableView(Context context) 
+    {
+        this(context, null, R.attr.EditableViewTheme);
+    }
+    
+    public EditableView(Context context, String name) 
+    {
+        this(context, null, R.attr.EditableViewTheme);
+        this.name = name;
+    }
+    
+    public EditableView(Context context, AttributeSet attrs) 
+    {
+        this(context, attrs, R.attr.EditableViewTheme);
+    }
+    
     public EditableView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) 
     {
         super(context, attrs, defStyleAttr, defStyleRes);
+        initAttrs(context, attrs);
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     @Override
@@ -30,4 +62,36 @@ public class EditableView extends TextView
     {
         super.onDraw(canvas);
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        setChoose(true);
+        return super.onTouchEvent(event);
+    }
+    
+    public void setChoose(boolean state)
+    {
+        if (bIsChoosed != state)
+        {
+            bIsChoosed = state;
+            if (bIsChoosed)
+            {
+                setBackgroundResource(R.drawable.editable_view_choosed);
+                MainActivity.EditableViewController.onViewChoose(this);
+            }
+            else
+            {
+                setBackgroundResource(R.drawable.editable_view_unchoosed);
+            }
+        }
+    }
+    
+    public boolean isChoosed()
+    {
+        return bIsChoosed;
+    }
+    
+    protected boolean bIsChoosed;
+    protected String name;
 }
