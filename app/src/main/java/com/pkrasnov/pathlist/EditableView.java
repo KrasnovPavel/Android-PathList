@@ -17,6 +17,8 @@ public class EditableView extends TextView
                        0, 0);
         try{
             name = a.getString(R.styleable.EditableView_viewName);
+            numberBefore = a.getInteger(R.styleable.EditableView_numberBefore, 3);
+            numberAfter = a.getInteger(R.styleable.EditableView_numberAfter, 3);
         }
         finally{
             a.recycle();
@@ -35,10 +37,12 @@ public class EditableView extends TextView
         this(context, null, R.attr.EditableViewTheme);
     }
     
-    public EditableView(Context context, String name) 
+    public EditableView(Context context, String name, int numberBefore, int numberAfter) 
     {
         this(context, null, R.attr.EditableViewTheme);
         this.name = name;
+        this.numberBefore = numberBefore;
+        this.numberAfter = numberAfter;
     }
     
     public EditableView(Context context, AttributeSet attrs) 
@@ -55,6 +59,16 @@ public class EditableView extends TextView
     public String getName()
     {
         return name;
+    }
+    
+    public int getNumberBefore()
+    {
+        return numberBefore;
+    }
+
+    public int getNumberAfter()
+    {
+        return numberAfter;
     }
 
     @Override
@@ -94,4 +108,5 @@ public class EditableView extends TextView
     
     protected boolean bIsChoosed;
     protected String name;
+    protected int numberBefore, numberAfter;
 }

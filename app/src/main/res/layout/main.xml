@@ -12,8 +12,10 @@
 		android:theme="@style/EditableViewStyle"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-        app:viewName="test2"
-        android:id="@+id/test2"/>
+		app:viewName="test2"
+        app:numberBefore="3"
+        app:numberAfter="1"
+		android:id="@+id/test2"/>
 
 	<TextView
 		android:layout_width="match_parent"
@@ -355,43 +357,50 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="7"
-			android:id="@+id/button7"/>
+			android:id="@+id/button7"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="8"
-			android:id="@+id/button8"/>
+			android:id="@+id/button8"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="9"
-			android:id="@+id/button9"/>
+			android:id="@+id/button9"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="&lt;---"
-			android:id="@+id/buttonBackspace"/>
+			android:id="@+id/buttonBackspace"
+			android:onClick="onBackspaceButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="4"
-			android:id="@+id/button4"/>
+			android:id="@+id/button4"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="5"
-			android:id="@+id/button5"/>
+			android:id="@+id/button5"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="6"
-			android:id="@+id/button6"/>
+			android:id="@+id/button6"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
@@ -403,19 +412,22 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="1"
-			android:id="@+id/button1"/>
+			android:id="@+id/button1"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="2"
-			android:id="@+id/button2"/>
+			android:id="@+id/button2"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="3"
-			android:id="@+id/button3"/>
+			android:id="@+id/button3"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
@@ -434,13 +446,15 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="0"
-			android:id="@+id/button0"/>
+			android:id="@+id/button0"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text=","
-			android:id="@+id/buttonComma"/>
+			android:id="@+id/buttonComma"
+			android:onClick="onNumberButtonClick"/>
 
 		<Button
 			android:layout_height="wrap_content"
