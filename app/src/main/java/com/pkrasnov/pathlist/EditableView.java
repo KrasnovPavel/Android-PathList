@@ -10,6 +10,23 @@ import android.content.res.*;
 
 public class EditableView extends TextView
 {
+    protected boolean bIsChoosed;
+    protected boolean bSpecialSelect;
+    protected String name;
+    protected int numberBefore, numberAfter;
+    protected float value;
+    
+    public void setSpecialSelect(boolean specialSelect)
+    {
+        bSpecialSelect = specialSelect;
+        updateBackground();
+    }
+
+    public boolean isSpecialSelected()
+    {
+        return bSpecialSelect;
+    }
+    
     private void initAttrs(Context context, AttributeSet attrs)
     {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, 
@@ -23,8 +40,7 @@ public class EditableView extends TextView
         finally{
             a.recycle();
         }
-        MainActivity.EditableViewController.addView(this);
-        
+        MainActivity.ViewsController.addView(this);
     }
     
     public EditableView(Context context, AttributeSet attrs, int defStyleAttr) 
@@ -81,24 +97,20 @@ public class EditableView extends TextView
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
-        setChoose(true);
+        setChoosed(true);
         return super.onTouchEvent(event);
     }
     
-    public void setChoose(boolean state)
+    public void setChoosed(boolean state)
     {
         if (bIsChoosed != state)
         {
             bIsChoosed = state;
-            if (bIsChoosed)
-            {
-                setBackgroundResource(R.drawable.editable_view_choosed);
-                MainActivity.EditableViewController.onViewChoose(this);
-            }
-            else
-            {
-                setBackgroundResource(R.drawable.editable_view_unchoosed);
-            }
+            updateBackground();
+        }
+        if (bIsChoosed == true)
+        {
+            MainActivity.ViewsController.onViewChoose(this);
         }
     }
     
@@ -107,7 +119,92 @@ public class EditableView extends TextView
         return bIsChoosed;
     }
     
-    protected boolean bIsChoosed;
-    protected String name;
-    protected int numberBefore, numberAfter;
+    public float getValue()
+    {
+        return value;
+    }
+    
+    public void addChar(String ch)
+    {
+        int dotPos = getText().toString().indexOf(".");
+        int numBefore, numAfter;
+        if (dotPos == -1)
+        {
+            numBefore = numberBefore - getText().length();
+            numAfter  = numberAfter;
+        }
+        else
+        {
+            numBefore = numberBefore - dotPos + 1;
+            numAfter  = numberAfter - (getText().length() - dotPos) + 1;
+        }
+
+        if (ch.equals("."))
+        {   
+            if (numBefore == numberBefore && numberAfter > 0 && !hasDot()) setText(getText() + "0" + ch);
+            if (numberAfter > 0 && !hasDot()) setText(getText() + ch);
+        }
+        else
+        {
+            if (dotPos == -1)
+            {
+                if (numBefore > 0) setText(getText() + ch);
+            }
+            else
+            {
+                if (numAfter > 0) setText(getText() + ch);
+            }
+        }
+        
+        updateValue();
+    }
+    
+    public boolean hasDot()
+    {
+        return getText().toString().indexOf(".") != -1;
+    }
+    
+    public boolean needDot()
+    {
+        return !(hasDot() || numberAfter == 0);
+    }
+    
+    public void removeChar()
+    {
+        int length = getText().length();
+        if (length > 0)
+        {
+            setText(getText().subSequence(0, length - 1));
+            updateValue();
+        }
+    }
+    
+    protected void updateValue()
+    {
+        try 
+        {
+            value = Float.valueOf(getText().toString());
+        }
+        catch(Exception e)
+        {
+            value = 0;
+        }
+    }
+    
+    protected void updateBackground()
+    {
+        if (bIsChoosed)
+        {
+            setBackgroundResource(R.drawable.editable_view_choosed);
+        }
+        else if (!bSpecialSelect)
+        {
+            setBackgroundResource(R.drawable.editable_view_unchoosed);
+        }
+        else 
+        {
+            setBackgroundResource(R.drawable.edirable_view_special_select);
+        }
+    }
 }
+

@@ -5,13 +5,55 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
+import android.text.*;
+import android.content.*;
 
 
 public class MainActivity extends Activity 
 {
-    
-    static class EditableViewController
-    {
+    static class ViewsController
+    {      
+        private static List<EditableView> views = new ArrayList<EditableView>();
+        private static List<TextView> speedometerViews = new ArrayList<TextView>();
+        private static TextView nameView, fuelCityView, fuelIntercityView, fullPathView;
+        private static TextView fuelSumView, oilSumView, endFuelView, endOilView;
+        private static Button dotButton, previousButton;
+        private static ToggleButton selectButton;
+        private static EditableView choosedView;
+        private static final int STATIC_FIELDS_COUNT = 5;
+        private static PathList pathList = null;
+        private static PathListScreenReader reader = new PathListScreenReader(views);
+
+        public static void init(TextView newNameView, 
+                                TextView newFuelCityView,
+                                TextView newFuelIntercityView,
+                                TextView newFuelSumView,
+                                TextView newOilSumView,
+                                TextView newEndFuelView,
+                                TextView newEndOilView,
+                                TextView newFullPathView,
+                                Button newDotButton, 
+                                Button newPreviousButton,
+                                ToggleButton newSelectButton,
+                                PathList newPathList)
+        {
+            dotButton = newDotButton;
+            previousButton = newPreviousButton;
+            nameView = newNameView;
+            selectButton = newSelectButton;
+            pathList = newPathList;
+            fuelCityView = newFuelCityView;
+            fuelIntercityView = newFuelIntercityView;
+            fuelSumView = newFuelSumView;
+            oilSumView = newOilSumView;
+            endOilView = newEndOilView;
+            endFuelView = newEndFuelView;
+            fullPathView = newFullPathView;
+            
+            views.get(0).setChoosed(true);
+            checkButtons(0);
+        }
+        
         public static void onViewChoose(EditableView newChoosedView)
         {
             Iterator<EditableView> i = views.iterator();
@@ -24,11 +66,11 @@ public class MainActivity extends Activity
                     {
                         nameView.setText(newChoosedView.getName());
                         choosedView = newChoosedView;
-                        checkComma();
+                        checkButtons(views.indexOf(view));
                     }
                     else
                     {
-                        view.setChoose(false);
+                        view.setChoosed(false);
                     }
                 }
             }
@@ -44,96 +86,134 @@ public class MainActivity extends Activity
             return choosedView;
         }
         
-        public static void checkComma()
+        public static void checkDot()
         {
-            
-            if (choosedView.getText().toString().indexOf(",") != -1 || choosedView.getNumberAfter() == 0)
-            {
-                commaButton.setEnabled(false);
-            } 
-            else
-            {
-                commaButton.setEnabled(true);
-            }
+            dotButton.setEnabled(choosedView.needDot());
         }
         
         public static void addNumber(String str)
         {
-            int commaPos = choosedView.getText().toString().indexOf(",");
-            int numBefore, numAfter;
-            if (commaPos == -1)
-            {
-                numBefore = choosedView.getNumberBefore() - choosedView.getText().length();
-                numAfter  = choosedView.getNumberAfter();
-            }
-            else
-            {
-                numBefore = choosedView.getNumberBefore() - commaPos + 1;
-                numAfter  = choosedView.getNumberAfter() - (choosedView.getText().length() - commaPos) + 1;
-            }
-            
-            if (str.equals(","))
-            {
-                if (choosedView.getNumberAfter() > 0)
-                {
-                    choosedView.setText(choosedView.getText() + str);
-                    checkComma();
-                }
-            }
-            else
-            {
-                if (commaPos == -1)
-                {
-                    if (numBefore > 0)
-                    {
-                        choosedView.setText(choosedView.getText().toString() + str);
-                    }
-                }
-                else
-                {
-                    if (numAfter > 0)
-                    {
-                        choosedView.setText(choosedView.getText().toString() + str);
-                    }
-                }
-            }
+            choosedView.addChar(str);
+            checkDot();
         }
            
         public static void removeNumber()
         {
-            if (choosedView.getText().length() > 0)
-            {
-                choosedView.setText(choosedView.getText().subSequence(0, choosedView.getText().length()-1));
-                checkComma();
-            }
+            choosedView.removeChar();
+            checkDot();
         }
         
         public static void nextView()
         {
-            if (choosedViewNumber() < views.size()-1)
+            int cvn = choosedViewNumber();
+            checkButtons(cvn);
+            if (cvn < views.size()-1)
             {
-                views.get(choosedViewNumber()+1).setChoose(true);
+                views.get(choosedViewNumber()+1).setChoosed(true);
             }
         }
         
         public static void previousView()
         {
-            if (choosedViewNumber() > 0)
-            {
-                views.get(choosedViewNumber()-1).setChoose(true);
+            int cvn = choosedViewNumber();
+            checkButtons(cvn);
+            if (cvn > 0)
+            { 
+                views.get(choosedViewNumber()-1).setChoosed(true);
             }
         }
         
-        private static int choosedViewNumber()
+        public static void selectClick()
+        {
+            choosedView.setSpecialSelect(selectButton.isChecked());
+        }
+        
+        protected static void checkButtons(int cvn)
+        {
+            checkDot();
+            previousButton.setEnabled(cvn != 0);
+            selectButton.setEnabled(cvn > STATIC_FIELDS_COUNT);
+            selectButton.setChecked(choosedView.isSpecialSelected());
+        }
+        
+        protected static int choosedViewNumber()
         {
             return views.indexOf(choosedView);
         }
-
-        private static List<EditableView> views = new ArrayList<EditableView>();
-        public static TextView nameView;
-        public static Button commaButton;
-        private static EditableView choosedView;
         
+        protected static boolean isLastViewChoosed()
+        {
+            return choosedViewNumber() == views.size() - 1;
+        }
+        
+        protected static int numberOfRows()
+        {
+            return views.size() - STATIC_FIELDS_COUNT;
+        }
+        
+        public static void reset()
+        {
+            views.clear();
+            nameView = choosedView = null;
+            dotButton = previousButton = selectButton = null;
+            fuelCityView = fuelIntercityView = fullPathView = null;
+            fuelSumView = oilSumView = endOilView = endFuelView = null;
+            pathList = null;
+        }
+        
+        public static void addSpeedometerView(Context context, GridLayout layout)
+        {
+            TextView view = new TextView(context);
+            speedometerViews.add(view);
+            layout.addView(view, layout.getChildCount() - 1);
+        }
+        
+        public static void refresh()
+        {
+            pathList.setData(reader.readData());
+            pathList.calculate();
+            Iterator<TextView> s = speedometerViews.iterator();
+            Iterator<Integer> ps = pathList.getSpeedometers().iterator();
+            while (s.hasNext() && ps.hasNext())
+            {
+                s.next().setText(ps.next().toString());
+            }
+            fullPathView.setText(pathList.getFullPath() + "");
+            fuelCityView.setText("Бензин(город):" 
+                                 + pathList.getCityPath()
+                                 + "x"
+                                 + pathList.getFuelRate()
+                                 + "/100="
+                                 + pathList.getFuelCity());
+            if (pathList.hasIntercity())
+            {
+                fuelIntercityView.setText("Бензин(межгород):" 
+                                     + pathList.getIntercityPath()
+                                     + "x"
+                                     + pathList.getFuelRate()
+                                     + "/100-15%="
+                                     + pathList.getFuelIntercity());
+                fuelSumView.setText("Бензин(сумма):" 
+                                     + pathList.getFuelCity()
+                                     + "+"
+                                     + pathList.getFuelIntercity()
+                                     + "="
+                                     + pathList.getConsumedFuel());
+                fuelIntercityView.setVisibility(View.VISIBLE);
+                fuelSumView.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                fuelIntercityView.setVisibility(View.GONE);
+                fuelSumView.setVisibility(View.GONE);
+            }
+            oilSumView.setText("Масло:" 
+                                + pathList.getConsumedFuel()
+                                + "x2.4/100="
+                                + pathList.getConsumedOil());
+            endFuelView.setText("Осталось топлива:" + pathList.getEndFuel());
+            endOilView.setText("Осталось масла:" + pathList.getEndOil());
+        }
     }
     
     @Override
@@ -141,34 +221,71 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        EditableView editableView = new EditableView(this, "test", 6, 0);
-        ((LinearLayout)findViewById(R.id.mainLayout)).addView(editableView, 0);
- 
-        EditableView editableView1 = new EditableView(this, "test1", 2, 2);
-        ((LinearLayout)findViewById(R.id.mainLayout)).addView(editableView1, 1);
+        ViewsController.init((TextView)findViewById(R.id.viewName),
+                             (TextView)findViewById(R.id.viewFuelCity),
+                             (TextView)findViewById(R.id.viewFuelIntercity),
+                             (TextView)findViewById(R.id.viewFuelSum),
+                             (TextView)findViewById(R.id.viewOilSum),
+                             (TextView)findViewById(R.id.viewEndFuel),
+                             (TextView)findViewById(R.id.viewEndOil),
+                             (TextView)findViewById(R.id.viewFullPath),
+                             (Button)findViewById(R.id.buttonDot),
+                             (Button)findViewById(R.id.buttonPrevious),
+                             (ToggleButton)findViewById(R.id.buttonSelect),
+                             new PathList());
         
-        EditableViewController.nameView = (TextView)findViewById(R.id.viewName);
-        EditableViewController.commaButton = (Button)findViewById(R.id.buttonComma);
-        editableView.setChoose(true);
     }
     
     public void onNumberButtonClick(View view)
     {
-        EditableViewController.addNumber(((Button)view).getText().toString());
+        ViewsController.addNumber(((Button)view).getText().toString());
+        ViewsController.refresh();
     }
     
     public void onBackspaceButtonClick(View view)
     {
-        EditableViewController.removeNumber();
+        ViewsController.removeNumber();
+        ViewsController.refresh();
     }
     
     public void onNextButtonClick(View view)
     {
-        EditableViewController.nextView();
+        if (ViewsController.isLastViewChoosed()) createRow();
+        ViewsController.nextView();
+        ViewsController.refresh();
     }
     
     public void onPreviousButtonClick(View view)
     {
-        EditableViewController.previousView();
+        ViewsController.previousView();
+        ViewsController.refresh();
+    }
+    
+    public void onSelectButtonClick(View view)
+    {
+        ViewsController.selectClick();
+        ViewsController.refresh();
+    }
+    
+    private void createRow()
+    {
+        String name = "Рейс #" + String.valueOf(ViewsController.numberOfRows()) 
+                     + ": пройдено километров";
+        EditableView ed = new EditableView(this, name, 3, 0);
+        GridLayout gl = (GridLayout)findViewById(R.id.table);
+        gl.addView(ed, gl.getChildCount() - 1);
+        
+        ViewsController.addSpeedometerView(this, gl);
+        
+        ScrollView sv = (ScrollView)findViewById(R.id.scroll);
+        sv.scrollTo(0, gl.getBottom());
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        ViewsController.reset();
+        super.onDestroy();
     }
 }
+
