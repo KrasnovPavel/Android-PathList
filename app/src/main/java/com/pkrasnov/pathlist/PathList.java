@@ -7,8 +7,8 @@ public class PathList
     
     private int beginSpeedometer, endSpeedometer;
     private int fullPath, cityPath, intercityPath;
-    private int beginFuel, endFuel, addedFuel, consumedFuel;
-    private float beginOil, endOil, addedOil, consumedOil;
+    private int beginFuel, endFuel, addedFuel;
+    private float beginOil, endOil, addedOil, consumedOil, consumedFuel;
     private List<Integer> speedometers = new ArrayList<Integer>();
     private List<Integer> kilos;
     private List<Boolean> intercity;
@@ -50,20 +50,19 @@ public class PathList
                 else cityPath += kilos.get(i);
             }
 
-            fuelCity = cityPath * fuelRate / 100f;
-            fuelIntercity = intercityPath * fuelRate * 0.85f / 100f;
-            consumedFuel = Math.round(fuelCity + fuelIntercity);
+            fuelCity = Math.round(cityPath * fuelRate) / 100f;
+            fuelIntercity = Math.round(intercityPath * fuelRate * 0.85f) / 100f;
+            consumedFuel = Math.round((fuelCity + fuelIntercity) * 100) / 100f;
             consumedOil  = Math.round((fuelCity + fuelIntercity) * oilRate) / 100f;
-            endFuel = beginFuel + addedFuel - consumedFuel;
-            endOil = beginOil + addedOil - consumedOil;
+            endFuel = beginFuel + addedFuel - Math.round(consumedFuel);
+            endOil = Math.round((beginOil + addedOil - consumedOil) * 100) / 100f;
             fullPath = cityPath + intercityPath;
         }
         else
         {
             intercityPath = cityPath = 0;
             fuelCity = fuelIntercity = 0;
-            consumedOil = 0f;
-            consumedFuel = 0;
+            consumedFuel = consumedOil = 0f;
             endFuel = beginFuel + addedFuel;
             endOil = beginOil + addedOil;
         }
@@ -124,7 +123,7 @@ public class PathList
         return addedFuel;
     }
     
-    public int getConsumedFuel()
+    public float getConsumedFuel()
     {
         return consumedFuel;
     }

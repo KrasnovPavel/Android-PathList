@@ -165,7 +165,9 @@ public class MainActivity extends Activity
                                 + "+"
                                 + pathList.getFuelIntercity()
                                 + "="
-                                + pathList.getConsumedFuel());
+                                + pathList.getConsumedFuel()
+                                + "~"
+                                + Math.round(pathList.getConsumedFuel()));
             fuelIntercityView.setVisibility(View.VISIBLE);
             fuelSumView.setVisibility(View.VISIBLE);
         }
