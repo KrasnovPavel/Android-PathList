@@ -86,6 +86,15 @@
 					app:numberBefore="2"
 					app:numberAfter="1"
 					app:viewName="Расход топлива"/>
+                
+                <com.pkrasnov.pathlist.EditableView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/OilConsumeView"
+                    android:layout_weight="3.0"
+                    app:numberBefore="1"
+                    app:numberAfter="2"
+					app:viewName="Расход масла:"/>
 
 			</LinearLayout>
 
@@ -98,7 +107,7 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-                    android:id="@+id/viewFullPath"
+					android:id="@+id/viewFullPath"
 					android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 			</GridLayout>
@@ -107,43 +116,37 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewFuelCity"
-				android:text="Бензин(город):"/>
+				android:id="@+id/viewFuelCity"/>
 
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewFuelIntercity"
-				android:text="Бензин(межгород):"/>
+				android:id="@+id/viewFuelIntercity"/>
 
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewFuelSum"
-				android:text="Бензин(сумма):"/>
+				android:id="@+id/viewFuelSum"/>
 
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewOilSum"
-				android:text="Масло:"/>
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/viewEndFuel"
-				android:text="Осталось топлива:"/>
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/viewEndOil"
-				android:text="Осталось масла:"/>
+				android:id="@+id/viewOilSum"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:id="@+id/viewEndFuel"/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:id="@+id/viewEndOil"/>
 
 		</LinearLayout>
 
@@ -268,7 +271,8 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:text="готово"
-			android:id="@+id/buttonDone"/>
+			android:id="@+id/buttonDone"
+			android:onClick="onDoneButtonClick"/>
 
 	</GridLayout>
 

@@ -6,7 +6,8 @@ import android.view.*;
 import android.widget.*;
 import java.util.*;
 import android.text.*;
-import android.content.*;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 
 public class MainActivity extends Activity 
@@ -19,7 +20,8 @@ public class MainActivity extends Activity
     private PathList pathList;
     private PathListScreenReader reader;
     private List<EditableView> views = new ArrayList<EditableView>();
-    private static final int STATIC_FIELDS_COUNT = 5;
+    private static final int STATIC_FIELDS_COUNT = 7;
+    private SharedPreferences sPref;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,8 +44,10 @@ public class MainActivity extends Activity
         pathList = new PathList();
         reader = new PathListScreenReader(views);
         
+        readData();
+        
         EditableView.setNameView(nameView);
-        EditableView.allViews.get(0).setChoosed(true);
+        views.get(0).setChoosed(true);
         checkButtons();
     }
     
@@ -84,6 +88,13 @@ public class MainActivity extends Activity
         checkButtons();
     }
     
+    public void onDoneButtonClick(View view)
+    {
+        saveData();
+        clearScreen();
+        readData();
+    }
+    
     protected EditableView getChoosedView()
     {
         Iterator<EditableView> i = EditableView.allViews.iterator();
@@ -105,7 +116,7 @@ public class MainActivity extends Activity
         int cvn = choosedViewNumber();
         checkDot();
         previousButton.setEnabled(cvn != 0);
-        selectButton.setEnabled(cvn > STATIC_FIELDS_COUNT);
+        selectButton.setEnabled(cvn >= STATIC_FIELDS_COUNT);
         selectButton.setChecked(getChoosedView().isSpecialSelected());
     }
     
@@ -132,7 +143,7 @@ public class MainActivity extends Activity
     
     public int numberOfRows()
     {
-        return views.size() - STATIC_FIELDS_COUNT;
+        return views.size() - STATIC_FIELDS_COUNT + 1;
     }
     
     public void refresh()
@@ -178,10 +189,68 @@ public class MainActivity extends Activity
         }
         oilSumView.setText("Масло:" 
                            + pathList.getConsumedFuel()
-                           + "x2.4/100="
+                           + "x"
+                           + pathList.getOilRate()
+                           + "/100=" 
                            + pathList.getConsumedOil());
         endFuelView.setText("Осталось топлива:" + pathList.getEndFuel());
         endOilView.setText("Осталось масла:" + pathList.getEndOil());
+    }
+    
+    protected void saveData()
+    {
+        sPref = getPreferences(MODE_PRIVATE);
+        Editor ed = sPref.edit();
+        ed.putInt("Speedometer", pathList.getEndSpeedometer());
+        ed.putInt("Fuel", pathList.getEndFuel());
+        ed.putFloat("Oil", pathList.getEndOil());
+        ed.putFloat("FuelRate", pathList.getFuelRate());
+        ed.putFloat("OilRate", pathList.getOilRate());
+        ed.commit();
+    }
+    
+    protected void readData()
+    {
+        sPref = getPreferences(MODE_PRIVATE);
+        views.get(0).setValue(sPref.getInt("Speedometer", 0));
+        views.get(1).setValue(sPref.getInt("Fuel", 0));
+        views.get(3).setValue(sPref.getFloat("Oil", 0));
+        views.get(5).setValue(sPref.getFloat("FuelRate", 0));
+        views.get(6).setValue(sPref.getFloat("OilRate", 0));
+        refresh();
+    }
+    
+    protected void clearScreen()
+    {
+        views.get(0).setChoosed(true);
+        for(int i = views.size() - 1; i >= 0 ; i--)
+        {
+            if (i < STATIC_FIELDS_COUNT)
+            {
+                views.get(i).clear();
+            }
+            else
+            {
+                ((ViewGroup)views.get(i).getParent()).removeView(views.get(i));
+                views.remove(i);
+            }
+        }
+        
+        Iterator<TextView> i = speedometerViews.iterator();
+        while(i.hasNext())
+        {
+            TextView view = i.next();
+            ((ViewGroup)view.getParent()).removeView(view);
+        }
+        speedometerViews.clear();
+        fullPathView.setText("");
+        fuelCityView.setText("");
+        fuelIntercityView.setText("");
+        fuelSumView.setText("");
+        endFuelView.setText("");
+        oilSumView.setText("");
+        endOilView.setText("");
+        pathList = new PathList();
     }
 
     @Override
@@ -189,7 +258,7 @@ public class MainActivity extends Activity
     {
         views.clear();
         speedometerViews.clear();
-        EditableView.clear();
+        EditableView.clearStatic();
         nameView = null;
         dotButton = previousButton = selectButton = null;
         fuelCityView = fuelIntercityView = fullPathView = null;

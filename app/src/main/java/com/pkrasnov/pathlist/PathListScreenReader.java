@@ -20,9 +20,10 @@ public class PathListScreenReader extends PathListReader
                 beginOil = views.get(3).getValue();
                 addedOil = views.get(4).getValue();
                 fuelRate = views.get(5).getValue();
+                oilRate = views.get(6).getValue();
                 kilos.clear();
                 intercity.clear();
-                for (int i = 6; i < views.size(); i++)
+                for (int i = 7; i < views.size(); i++)
                 {
                     kilos.add(Math.round(views.get(i).getValue()));
                     intercity.add(views.get(i).isSpecialSelected());

@@ -5,15 +5,14 @@ import java.lang.Math;
 public class PathList
 {
     
-    private int beginSpeedometer, endSpeedometer;
+    private int beginSpeedometer;
     private int fullPath, cityPath, intercityPath;
     private int beginFuel, endFuel, addedFuel;
     private float beginOil, endOil, addedOil, consumedOil, consumedFuel;
     private List<Integer> speedometers = new ArrayList<Integer>();
     private List<Integer> kilos;
     private List<Boolean> intercity;
-    private static final float oilRate = 2.4f;
-    private float fuelRate, fuelCity, fuelIntercity;;
+    private float fuelRate, fuelCity, fuelIntercity, oilRate;
 
     public void setData(PathListReader reader)
     {
@@ -25,6 +24,7 @@ public class PathList
         beginOil = reader.getBeginOil();
         addedOil = reader.getAddedOil();
         fuelRate = reader.getFuelRate();
+        oilRate = reader.getOilRate();
     }
     
     public void calculate()
@@ -53,7 +53,7 @@ public class PathList
             fuelCity = Math.round(cityPath * fuelRate) / 100f;
             fuelIntercity = Math.round(intercityPath * fuelRate * 0.85f) / 100f;
             consumedFuel = Math.round((fuelCity + fuelIntercity) * 100) / 100f;
-            consumedOil  = Math.round((fuelCity + fuelIntercity) * oilRate) / 100f;
+            consumedOil  = Math.round(consumedFuel * oilRate) / 100f;
             endFuel = beginFuel + addedFuel - Math.round(consumedFuel);
             endOil = Math.round((beginOil + addedOil - consumedOil) * 100) / 100f;
             fullPath = cityPath + intercityPath;
@@ -107,6 +107,11 @@ public class PathList
     {
         return consumedOil;
     }
+    
+    public float getOilRate()
+    {
+        return oilRate;
+    }
 
     public int getBeginFuel()
     {
@@ -135,7 +140,8 @@ public class PathList
     
     public int getEndSpeedometer()
     {
-        return endSpeedometer;
+        if (speedometers.isEmpty()) return beginSpeedometer;
+        else return speedometers.get(speedometers.size()-1);
     }
     
     public float getFuelRate()

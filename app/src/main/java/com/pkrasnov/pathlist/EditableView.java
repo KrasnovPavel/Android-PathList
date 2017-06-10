@@ -30,10 +30,25 @@ public class EditableView extends TextView
         EditableView.allViews = allViews;
     }
     
-    public static void clear()
+    public static String format(float d)
+    {
+        if(d == (int) d)
+            return String.format("%d",(long)d);
+        else
+            return String.format("%s",d);
+    }
+    
+    public static void clearStatic()
     {
         allViews = null;
         nameView = null;
+    }
+    
+    public void clear()
+
+    {
+        value = 0;
+        setText("");
     }
     
     public void setSpecialSelect(boolean specialSelect)
@@ -238,7 +253,9 @@ public class EditableView extends TextView
     {
         if (Math.pow(10, numberBefore) > value)
         {
-            this.value = Math.round(value * 100) / 100f;
+            double shift = Math.pow(10, numberAfter);
+            this.value = Math.round(value * shift) / (float)shift;
+            setText(format(this.value));
         }
     }
 }

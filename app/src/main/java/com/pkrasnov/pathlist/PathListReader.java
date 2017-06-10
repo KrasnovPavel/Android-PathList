@@ -9,13 +9,18 @@ public abstract class PathListReader
     protected List<Boolean> intercity = new ArrayList<Boolean>();
     protected int beginFuel, addedFuel;
     protected float beginOil, addedOil;
-    protected float fuelRate;
+    protected float fuelRate, oilRate;
     
     public abstract PathListReader readData();
 
     public float getFuelRate()
     {
         return fuelRate;
+    }
+    
+    public float getOilRate()
+    {
+        return oilRate;
     }
 
     public float getBeginOil()
