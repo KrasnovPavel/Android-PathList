@@ -1,11 +1,13 @@
 package com.pkrasnov.pathlist;
 
+import java.util.*;
 import android.widget.TextView;
 import android.content.*;
 import android.util.*;
 import android.graphics.*;
 import android.view.*;
 import android.content.res.*;
+import android.webkit.*;
 
 
 public class EditableView extends TextView
@@ -15,6 +17,24 @@ public class EditableView extends TextView
     protected String name;
     protected int numberBefore, numberAfter;
     protected float value;
+    protected static List<EditableView> allViews;
+    protected static TextView nameView;
+
+    public static void setNameView(TextView nameView)
+    {
+        EditableView.nameView = nameView;
+    }
+
+    public static void setAllViews(List<EditableView> allViews)
+    {
+        EditableView.allViews = allViews;
+    }
+    
+    public static void clear()
+    {
+        allViews = null;
+        nameView = null;
+    }
     
     public void setSpecialSelect(boolean specialSelect)
     {
@@ -40,7 +60,7 @@ public class EditableView extends TextView
         finally{
             a.recycle();
         }
-        MainActivity.ViewsController.addView(this);
+        allViews.add(this);
     }
     
     public EditableView(Context context, AttributeSet attrs, int defStyleAttr) 
@@ -110,7 +130,14 @@ public class EditableView extends TextView
         }
         if (bIsChoosed == true)
         {
-            MainActivity.ViewsController.onViewChoose(this);
+            Iterator<EditableView> i = allViews.iterator();
+            while (i.hasNext())
+            {
+                EditableView view = i.next();
+                if (view != this) view.setChoosed(false);
+            }
+            nameView.setText(this.name);
+            ((MainActivity)getContext()).checkButtons();
         }
     }
     
@@ -204,6 +231,14 @@ public class EditableView extends TextView
         else 
         {
             setBackgroundResource(R.drawable.edirable_view_special_select);
+        }
+    }
+    
+    public void setValue(float value)
+    {
+        if (Math.pow(10, numberBefore) > value)
+        {
+            this.value = Math.round(value * 100) / 100f;
         }
     }
 }
