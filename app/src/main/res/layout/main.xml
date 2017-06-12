@@ -37,7 +37,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/viewSpeedometer"
-					android:layout_weight="6.0"
+					android:layout_weight="2"
 					app:numberBefore="6"
 					app:numberAfter="0"
 					app:viewName="Спидометр"/>
@@ -46,7 +46,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/viewBeginFuel"
-					android:layout_weight="3.0"
+					android:layout_weight="1"
 					app:numberBefore="3"
 					app:numberAfter="0"
 					app:viewName="Топливо перед выездом"/>
@@ -55,16 +55,23 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/addFuelView"
-					android:layout_weight="3.0"
+					android:layout_weight="1"
 					app:numberBefore="3"
 					app:numberAfter="0"
 					app:viewName="Топливо получено"/>
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+				android:orientation="horizontal">
 
 				<com.pkrasnov.pathlist.EditableView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/viewBeginOil"
-					android:layout_weight="3.0"
+					android:layout_weight="1"
 					app:numberBefore="2"
 					app:numberAfter="2"
 					app:viewName="Масло перед выездом"/>
@@ -73,7 +80,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/addOilView"
-					android:layout_weight="2.0"
+					android:layout_weight="1"
 					app:numberBefore="2"
 					app:numberAfter="0"
 					app:viewName="Масло получено"/>
@@ -82,35 +89,155 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:id="@+id/fuelConsumeView"
-					android:layout_weight="3.0"
+					android:layout_weight="1"
 					app:numberBefore="2"
 					app:numberAfter="1"
 					app:viewName="Расход топлива"/>
-                
+
                 <com.pkrasnov.pathlist.EditableView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/OilConsumeView"
-                    android:layout_weight="3.0"
+                    android:layout_weight="1"
                     app:numberBefore="1"
                     app:numberAfter="2"
-					app:viewName="Расход масла:"/>
+					app:viewName="Расход масла"/>
+                
+                <com.pkrasnov.pathlist.EditableView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MaxWeightView"
+                    android:layout_weight="1"
+                    app:numberBefore="2"
+                    app:numberAfter="1"
+					app:viewName="Максимальный вес груза"/>
 
 			</LinearLayout>
 
-			<GridLayout
+			<TableLayout
 				android:layout_height="wrap_content"
 				android:layout_width="match_parent"
-				android:columnCount="2"
 				android:id="@+id/table">
+                
+                <TableRow>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                        
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="14"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                </TableRow>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/viewFullPath"
-					android:textAppearance="?android:attr/textAppearanceSmall"/>
+                <TableRow>
 
-			</GridLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewFullPath"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewLoadedPath"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewFullWeight"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewFactJob"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewPossibleJob"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/table_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:gravity="center_horizontal"/>
+                    
+                </TableRow>
+
+			</TableLayout>
 
 			<TextView
 				android:layout_width="match_parent"
@@ -148,6 +275,12 @@
 				android:textAppearance="?android:attr/textAppearanceMedium"
 				android:id="@+id/viewEndOil"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+				android:id="@+id/viewPercentage"/>
+            
 		</LinearLayout>
 
 	</ScrollView>

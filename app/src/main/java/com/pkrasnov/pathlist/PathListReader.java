@@ -10,6 +10,18 @@ public abstract class PathListReader
     protected int beginFuel, addedFuel;
     protected float beginOil, addedOil;
     protected float fuelRate, oilRate;
+    protected List<Float> weights = new ArrayList<Float>();
+    protected float maxWeight;
+
+    public List<Float> getWeights()
+    {
+        return weights;
+    }
+
+    public float getMaxWeight()
+    {
+        return maxWeight;
+    }
     
     public abstract PathListReader readData();
 
