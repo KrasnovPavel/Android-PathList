@@ -106,6 +106,14 @@ public class MainActivity extends Activity
         readData();
     }
     
+    public static String format(float d)
+    {
+        if(d == (int) d)
+            return String.format("%d",(long)d);
+        else
+            return String.format("%s",d);
+    }
+    
     protected EditableView getChoosedView()
     {
         Iterator<EditableView> i = EditableView.allViews.iterator();
@@ -194,17 +202,17 @@ public class MainActivity extends Activity
         Iterator<Integer> pl = pathList.getLoadedPaths().iterator();
         while (s.hasNext())
         {
-            s.next().setText(ps.next().toString());
-            f.next().setText(pf.next().toString());
-            p.next().setText(pp.next().toString());
-            l.next().setText(pl.next().toString());
+            s.next().setText(format(ps.next()));
+            f.next().setText(format(pf.next()));
+            p.next().setText(format(pp.next()));
+            l.next().setText(format(pl.next()));
         }
         
         
         fullPathView.setText(pathList.getFullPath() + "");
-        fullWeightView.setText(pathList.getFullWeight() + "");
-        fullFactJobView.setText(pathList.getFullFactJob() + "");
-        fullPossibleJobView.setText(pathList.getFullPossibleJob() + "");
+        fullWeightView.setText(format(pathList.getFullWeight()) + "");
+        fullFactJobView.setText(format(pathList.getFullFactJob()) + "");
+        fullPossibleJobView.setText(format(pathList.getFullPossibleJob()) + "");
         fullLoadedPathView.setText(pathList.getFullLoadedPath() + "");
         
         fuelCityView.setText("Бензин(город):" 

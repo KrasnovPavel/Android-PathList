@@ -251,7 +251,12 @@ public class EditableView extends TextView
     
     public void setValue(float value)
     {
-        if (Math.pow(10, numberBefore) > value)
+        if (value <= 0f)
+        {
+            this.value = 0f;
+            setText("");
+        }
+        else if (Math.pow(10, numberBefore) > value)
         {
             double shift = Math.pow(10, numberAfter);
             this.value = Math.round(value * shift) / (float)shift;
