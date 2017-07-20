@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Holo">
+        <item name="EditableViewTheme">@style/EditableViewStyle</item>
+    </style>
+    <style name="EditableViewStyle" parent="@android:style/Theme.Holo">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@drawable/editable_view_unchoosed</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
 	</style>
 </resources>
