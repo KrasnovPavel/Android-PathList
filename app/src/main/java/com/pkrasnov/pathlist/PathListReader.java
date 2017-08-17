@@ -6,10 +6,11 @@ public abstract class PathListReader
 {
     protected int beginSpeedometer;
     protected List<Integer> kilos = new ArrayList<Integer>();
+    protected List<Integer> motohours = new ArrayList<Integer>();
     protected List<Boolean> intercity = new ArrayList<Boolean>();
     protected int beginFuel, addedFuel;
     protected float beginOil, addedOil;
-    protected float fuelRate, oilRate;
+    protected float fuelRate, oilRate, motohourRate;
     protected List<Float> weights = new ArrayList<Float>();
     protected float maxWeight;
 
@@ -21,6 +22,16 @@ public abstract class PathListReader
     public float getMaxWeight()
     {
         return maxWeight;
+    }
+    
+    public List<Integer> getMotohours()
+    {
+        return motohours;
+    }
+    
+    public float getMotohourRate()
+    {
+        return motohourRate;
     }
     
     public abstract PathListReader readData();

@@ -6,7 +6,7 @@ public class PathList
 {
     
     private int beginSpeedometer;
-    private int fullPath, cityPath, intercityPath;
+    private int fullPath, cityPath, intercityPath, fullMutohours;
     private int beginFuel, endFuel, addedFuel;
     private int fullLoadedPath;
     private float beginOil, endOil, addedOil, consumedOil, consumedFuel;
@@ -16,9 +16,10 @@ public class PathList
     private List<Float> factJobs = new ArrayList<Float>();
     private List<Float> possibleJobs = new ArrayList<Float>();
     private List<Integer> loadedPaths = new ArrayList<Integer>();
+    private List<Integer> motohours = new ArrayList<Integer>();
     private float maxWeight, fullWeight, fullFactJob, fullPossibleJob, percentage;
     private List<Boolean> intercity;
-    private float fuelRate, fuelCity, fuelIntercity, oilRate;
+    private float fuelRate, fuelCity, fuelIntercity, fuelMotohours, motohourRate, oilRate;
 
     
     public void setData(PathListReader reader)
@@ -34,6 +35,8 @@ public class PathList
         oilRate = reader.getOilRate();
         weights = reader.getWeights();
         maxWeight = reader.getMaxWeight();
+        motohours = reader.getMotohours();
+        motohourRate = reader.getMotohourRate();
     }
     
     public void calculate()
@@ -61,8 +64,6 @@ public class PathList
 
             fuelCity = Math.round(cityPath * fuelRate) / 100f;
             fuelIntercity = Math.round(intercityPath * fuelRate * 0.85f) / 100f;
-            consumedFuel = Math.round((fuelCity + fuelIntercity) * 100) / 100f;
-            consumedOil  = Math.round(consumedFuel * oilRate) / 100f;
             endFuel = beginFuel + addedFuel - Math.round(consumedFuel);
             endOil = Math.round((beginOil + addedOil - consumedOil) * 100) / 100f;
             fullPath = cityPath + intercityPath;
@@ -71,7 +72,7 @@ public class PathList
             possibleJobs.clear();
             loadedPaths.clear();
             fullWeight = fullFactJob = fullPossibleJob = 0f;
-            fullLoadedPath = 0;
+            fullLoadedPath = fullMutohours = 0;
             for (int i = 0; i < weights.size(); i++)
             {
                 float cfj = Math.round(weights.get(i) * kilos.get(i) * 10f) / 10f;
@@ -84,7 +85,11 @@ public class PathList
                 fullPossibleJob += cpj;
                 fullWeight += Math.round(weights.get(i) * 10f) / 10f;
                 fullLoadedPath += clp;
+                fullMutohours += Math.round(motohours.get(i));
             }
+            fuelMotohours = Math.round(fullMutohours * motohourRate * 10f) / 10f;
+            consumedFuel = Math.round((fuelCity + fuelIntercity + fuelMotohours) * 100) / 100f;
+            consumedOil  = Math.round(consumedFuel * oilRate) / 100f;
             percentage = Math.round(fullFactJob / fullPossibleJob * 100f) / 100f;
             fullFactJob = Math.round(fullFactJob * 10) / 10f;
             fullPossibleJob = Math.round(fullPossibleJob * 10) / 10;
@@ -134,6 +139,26 @@ public class PathList
     public List<Integer> getLoadedPaths()
     {
         return loadedPaths;
+    }
+    
+    public List<Integer> getMotohours()
+    {
+        return motohours;
+    }
+    
+    public int getFullMotohours()
+    {
+        return fullMutohours;
+    }
+    
+    public float getFuelMotohours()
+    {
+        return fuelMotohours;
+    }
+    
+    public float getMotohourRate()
+    {
+        return motohourRate;
     }
     
     public int getFullLoadedPath()
@@ -258,6 +283,16 @@ public class PathList
         while (i.hasNext())
         {
             if (i.next()) return true;
+        }
+        return false;
+    }
+    
+    public boolean hasMotohours()
+    {
+        Iterator<Integer> i = motohours.iterator();
+        while (i.hasNext())
+        {
+            if (i.next() > 0) return true;
         }
         return false;
     }

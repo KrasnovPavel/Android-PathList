@@ -30,6 +30,12 @@ public class EditableView extends TextView
         EditableView.allViews = allViews;
     }
     
+    public static List<EditableView> getAllViews()
+
+    {
+        return allViews;
+    }
+    
     public static String format(float d)
     {
         if(d == (int) d)

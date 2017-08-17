@@ -1,413 +1,468 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	android:gravity="fill"
-	android:id="@+id/mainLayout">
 
-	<TextView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:text="Наименование пункта"
-		android:gravity="center_horizontal"
-		android:id="@+id/viewName"
-		android:background="@drawable/editable_view_unchoosed"/>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<ScrollView
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:layout_weight="1.0"
-		android:id="@+id/scroll">
+    <!-- The main content view -->
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="fill"
+        android:id="@+id/mainLayout">
 
-		<LinearLayout
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Наименование пункта"
+            android:gravity="center_horizontal"
+            android:id="@+id/viewName"
+            android:background="@drawable/editable_view_unchoosed"/>
 
-			<LinearLayout
-				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:orientation="horizontal">
+        <ScrollView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1.0"
+            android:id="@+id/scroll">
 
-				<com.pkrasnov.pathlist.EditableView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/viewSpeedometer"
-					android:layout_weight="2"
-					app:numberBefore="6"
-					app:numberAfter="0"
-					app:viewName="Спидометр"/>
-
-				<com.pkrasnov.pathlist.EditableView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/viewBeginFuel"
-					android:layout_weight="1"
-					app:numberBefore="3"
-					app:numberAfter="0"
-					app:viewName="Топливо перед выездом"/>
-
-				<com.pkrasnov.pathlist.EditableView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/addFuelView"
-					android:layout_weight="1"
-					app:numberBefore="3"
-					app:numberAfter="0"
-					app:viewName="Топливо получено"/>
-                
-            </LinearLayout>
-            
             <LinearLayout
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-				android:orientation="horizontal">
+                android:orientation="vertical">
 
-				<com.pkrasnov.pathlist.EditableView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/viewBeginOil"
-					android:layout_weight="1"
-					app:numberBefore="2"
-					app:numberAfter="2"
-					app:viewName="Масло перед выездом"/>
-
-				<com.pkrasnov.pathlist.EditableView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/addOilView"
-					android:layout_weight="1"
-					app:numberBefore="2"
-					app:numberAfter="0"
-					app:viewName="Масло получено"/>
-
-				<com.pkrasnov.pathlist.EditableView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:id="@+id/fuelConsumeView"
-					android:layout_weight="1"
-					app:numberBefore="2"
-					app:numberAfter="1"
-					app:viewName="Расход топлива"/>
-
-                <com.pkrasnov.pathlist.EditableView
-                    android:layout_width="wrap_content"
+                <LinearLayout
                     android:layout_height="wrap_content"
-                    android:id="@+id/OilConsumeView"
-                    android:layout_weight="1"
-                    app:numberBefore="1"
-                    app:numberAfter="2"
-					app:viewName="Расход масла"/>
-                
-                <com.pkrasnov.pathlist.EditableView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/MaxWeightView"
-                    android:layout_weight="1"
-                    app:numberBefore="2"
-                    app:numberAfter="1"
-					app:viewName="Максимальный вес груза"/>
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal">
 
-			</LinearLayout>
-
-			<TableLayout
-				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:id="@+id/table">
-                
-                <TableRow>
-                    
-                    <TextView
+                    <com.pkrasnov.pathlist.EditableView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
+                        android:id="@+id/viewSpeedometer"
+                        android:layout_weight="2"
+                        app:numberBefore="6"
+                        app:numberAfter="0"
+                        app:viewName="Спидометр"/>
+
+                    <com.pkrasnov.pathlist.EditableView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="6"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
+                        android:id="@+id/viewBeginFuel"
+                        android:layout_weight="1"
+                        app:numberBefore="3"
+                        app:numberAfter="0"
+                        app:viewName="Топливо перед выездом"/>
+
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addFuelView"
+                        android:layout_weight="1"
+                        app:numberBefore="3"
+                        app:numberAfter="0"
+                        app:viewName="Топливо получено"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/viewBeginOil"
+                        android:layout_weight="1"
+                        app:numberBefore="2"
+                        app:numberAfter="2"
+                        app:viewName="Масло перед выездом"/>
+
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/addOilView"
+                        android:layout_weight="1"
+                        app:numberBefore="2"
+                        app:numberAfter="0"
+                        app:viewName="Масло получено"/>
+
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fuelConsumeView"
+                        android:layout_weight="1"
+                        app:numberBefore="2"
+                        app:numberAfter="1"
+                        app:viewName="Расход топлива"/>
+
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/OilConsumeView"
+                        android:layout_weight="1"
+                        app:numberBefore="1"
+                        app:numberAfter="2"
+                        app:viewName="Расход масла"/>
+
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/MotohourRateView"
+                        android:layout_weight="1"
+                        app:numberBefore="2"
+                        app:numberAfter="1"
+                        app:viewName="Расход топлива на моточас"/>
+                    
+                    <com.pkrasnov.pathlist.EditableView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/MaxWeightView"
+                        android:layout_weight="1"
+                        app:numberBefore="2"
+                        app:numberAfter="1"
+                        app:viewName="Максимальный вес груза"/>
+
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/table">
+
+                    <TableRow>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="6"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="15"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="16"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
                         
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="12"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="14"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="18"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                </TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="18"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
 
-                <TableRow>
+                    </TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/viewFullPath"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/viewLoadedPath"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/viewFullWeight"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/viewFactJob"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/viewPossibleJob"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:background="@drawable/table_title"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:gravity="center_horizontal"/>
-                    
-                </TableRow>
+                    <TableRow>
 
-			</TableLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewFullPath"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewFuelCity"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewLoadedPath"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewFuelIntercity"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewFullWeight"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewFuelSum"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewFactJob"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewOilSum"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewPossibleJob"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/viewFullMotohours"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/table_title"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center_horizontal"/>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewEndFuel"/>
+                    </TableRow>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewEndOil"/>
+                </TableLayout>
 
-            <TextView
-                android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewFuelCity"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewFuelIntercity"/>
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewFuelMotohours"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewFuelSum"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewOilSum"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewEndFuel"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewEndOil"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:id="@+id/viewPercentage"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <GridLayout
+            columnCount="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            rowCount="1"
+            android:columnCount="4"
+            android:layout_gravity="bottom|center_horizontal">
+
+            <Button
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-				android:id="@+id/viewPercentage"/>
-            
-		</LinearLayout>
+                android:layout_width="wrap_content"
+                android:text="7"
+                android:id="@+id/button7"
+                android:onClick="onNumberButtonClick"/>
 
-	</ScrollView>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="8"
+                android:id="@+id/button8"
+                android:onClick="onNumberButtonClick"/>
 
-	<GridLayout
-		columnCount="1"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		rowCount="1"
-		android:columnCount="4"
-		android:layout_gravity="bottom|center_horizontal">
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="9"
+                android:id="@+id/button9"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="7"
-			android:id="@+id/button7"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="&lt;---"
+                android:id="@+id/buttonBackspace"
+                android:onClick="onBackspaceButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="8"
-			android:id="@+id/button8"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="4"
+                android:id="@+id/button4"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="9"
-			android:id="@+id/button9"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="5"
+                android:id="@+id/button5"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="&lt;---"
-			android:id="@+id/buttonBackspace"
-			android:onClick="onBackspaceButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="6"
+                android:id="@+id/button6"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="4"
-			android:id="@+id/button4"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="назад"
+                android:id="@+id/buttonPrevious"
+                android:onClick="onPreviousButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="5"
-			android:id="@+id/button5"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="1"
+                android:id="@+id/button1"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="6"
-			android:id="@+id/button6"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="2"
+                android:id="@+id/button2"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="назад"
-			android:id="@+id/buttonPrevious"
-			android:onClick="onPreviousButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="3"
+                android:id="@+id/button3"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="1"
-			android:id="@+id/button1"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="далее"
+                android:id="@+id/buttonNext"
+                android:onClick="onNextButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="2"
-			android:id="@+id/button2"
-			android:onClick="onNumberButtonClick"/>
+            <ToggleButton
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textOff="город"
+                android:textOn="м/город"
+                android:text="город"
+                android:id="@+id/buttonSelect"
+                android:onClick="onSelectButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="3"
-			android:id="@+id/button3"
-			android:onClick="onNumberButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="0"
+                android:id="@+id/button0"
+                android:onClick="onNumberButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="далее"
-			android:id="@+id/buttonNext"
-			android:onClick="onNextButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="."
+                android:id="@+id/buttonDot"
+                android:onClick="onNumberButtonClick"/>
 
-		<ToggleButton
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textOff="город"
-			android:textOn="м/город"
-			android:text="город"
-			android:id="@+id/buttonSelect"
-			android:onClick="onSelectButtonClick"/>
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="готово"
+                android:id="@+id/buttonDone"
+                android:onClick="onDoneButtonClick"/>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="0"
-			android:id="@+id/button0"
-			android:onClick="onNumberButtonClick"/>
+        </GridLayout>
 
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="."
-			android:id="@+id/buttonDot"
-			android:onClick="onNumberButtonClick"/>
-
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="готово"
-			android:id="@+id/buttonDone"
-			android:onClick="onDoneButtonClick"/>
-
-	</GridLayout>
-
-</LinearLayout>
-
+    </LinearLayout>
+    
+    <!-- The navigation drawer -->
+    <ListView 
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="#111"/>
+    
+</android.support.v4.widget.DrawerLayout>
