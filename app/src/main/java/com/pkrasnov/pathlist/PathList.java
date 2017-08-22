@@ -287,14 +287,19 @@ public class PathList
         return false;
     }
     
+    public boolean hasWeight()
+    {
+        return !(maxWeight == 0);
+    }
+    
+    public boolean hasOil()
+    {
+        return !(oilRate == 0);
+    }
+    
     public boolean hasMotohours()
     {
-        Iterator<Integer> i = motohours.iterator();
-        while (i.hasNext())
-        {
-            if (i.next() > 0) return true;
-        }
-        return false;
+        return !(motohourRate == 0);
     }
 }
 

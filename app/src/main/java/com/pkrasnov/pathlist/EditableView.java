@@ -31,7 +31,6 @@ public class EditableView extends TextView
     }
     
     public static List<EditableView> getAllViews()
-
     {
         return allViews;
     }
@@ -51,7 +50,6 @@ public class EditableView extends TextView
     }
     
     public void clear()
-
     {
         value = 0;
         setText("");

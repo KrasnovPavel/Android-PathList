@@ -156,6 +156,7 @@
                             android:background="@drawable/table_title"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
+                            android:id="@+id/view6"
                             android:gravity="center_horizontal"/>
 
                         <TextView
@@ -166,6 +167,7 @@
                             android:background="@drawable/table_title"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
+                            android:id="@+id/view12"
                             android:gravity="center_horizontal"/>
 
                         <TextView
@@ -176,6 +178,7 @@
                             android:background="@drawable/table_title"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
+                            android:id="@+id/view14"
                             android:gravity="center_horizontal"/>
 
                         <TextView
@@ -186,6 +189,7 @@
                             android:background="@drawable/table_title"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
+                            android:id="@+id/view15"
                             android:gravity="center_horizontal"/>
 
                         <TextView
@@ -196,6 +200,7 @@
                             android:background="@drawable/table_title"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
+                            android:id="@+id/view16"
                             android:gravity="center_horizontal"/>
                         
                         <TextView

@@ -9,7 +9,6 @@ import android.text.*;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
-import android.app.ActionBar;
 
 public class MainActivity extends Activity 
 {
@@ -22,6 +21,7 @@ public class MainActivity extends Activity
     private TextView fuelSumView, oilSumView, endFuelView, endOilView;
     private TextView fullMotohoursView, fuelMotohoursView;
     private TextView fullWeightView, fullPossibleJobView, fullFactJobView, fullLoadedPathView, percentageView;
+    private TextView view6, view12, view14, view15, view16;
     private Button dotButton, previousButton;
     private ToggleButton selectButton;
     private PathList pathList;
@@ -54,18 +54,21 @@ public class MainActivity extends Activity
 
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
+    protected void onPostCreate(Bundle savedInstanceState)
+    {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         DrawerHelper.getDrawerToggle().syncState();
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
+    public void onConfigurationChanged(Configuration newConfig)
+    {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         DrawerHelper.getDrawerToggle().onConfigurationChanged(newConfig);
     }
+
     private void findResourses()
     {
         nameView            = (TextView)findViewById(R.id.viewName);
@@ -83,6 +86,11 @@ public class MainActivity extends Activity
         percentageView      = (TextView)findViewById(R.id.viewPercentage);
         fullMotohoursView   = (TextView)findViewById(R.id.viewFullMotohours);
         fuelMotohoursView   = (TextView)findViewById(R.id.viewFuelMotohours);
+        view6               = (TextView)findViewById(R.id.view6);
+        view12              = (TextView)findViewById(R.id.view12);
+        view14              = (TextView)findViewById(R.id.view14);
+        view15              = (TextView)findViewById(R.id.view15);
+        view16              = (TextView)findViewById(R.id.view16);
         dotButton           = (Button)  findViewById(R.id.buttonDot);
         previousButton      = (Button)  findViewById(R.id.buttonPrevious);
         selectButton        = (ToggleButton)findViewById(R.id.buttonSelect);
@@ -112,16 +120,33 @@ public class MainActivity extends Activity
     public void onNextButtonClick(View view)
     {
         int cvn = choosedViewNumber();
-        if (cvn == views.size()-1) createRow();
-        views.get(choosedViewNumber()+1).setChoosed(true);
+        int delta = 1;
+        int dcvn = cvn - (STATIC_FIELDS_COUNT - 1);
+        if (dcvn % 3 == 2 && !pathList.hasMotohours()) delta = 2;
+        if (dcvn % 3 == 1 && !pathList.hasWeight())
+        {
+            delta += (pathList.hasMotohours()) ?1: 2;
+        }
+        if (cvn < STATIC_FIELDS_COUNT) delta = 1;
+        if ((cvn + delta) == views.size()) createRow();
+        views.get(cvn + delta).setChoosed(true);
         checkButtons();
     }
 
     public void onPreviousButtonClick(View view)
     {
-        if (choosedViewNumber() > 0)
+        int cvn = choosedViewNumber();
+        int delta = 1;
+        int dcvn = cvn - (STATIC_FIELDS_COUNT - 1);
+        if (dcvn % 3 == 0 && !pathList.hasWeight()) delta = 2;
+        if (dcvn % 3 == 1 && !pathList.hasMotohours())
+        {
+            delta += (pathList.hasWeight()) ?1: 2;
+        }
+        if (cvn <= STATIC_FIELDS_COUNT) delta = 1;
+        if (cvn - delta >= 0)
         { 
-            views.get(choosedViewNumber()-1).setChoosed(true);
+            views.get(cvn - delta).setChoosed(true);
         }
         checkButtons();
     }
@@ -130,7 +155,7 @@ public class MainActivity extends Activity
     {
         donePressed();
     }
-    
+
     protected void donePressed()
     {
         saveData();
@@ -140,10 +165,10 @@ public class MainActivity extends Activity
 
     public static String format(float d)
     {
-        if(d == (int) d)
-            return String.format("%d",(long)d);
+        if (d == (int) d)
+            return String.format("%d", (long)d);
         else
-            return String.format("%s",d);
+            return String.format("%s", d);
     }
 
     protected EditableView getChoosedView()
@@ -188,7 +213,7 @@ public class MainActivity extends Activity
 
         String name3 = "Рейс #" + String.valueOf(numberOfRows()) 
         + ": отработано моточасов";
-        
+
         EditableView ed = new EditableView(this, name1, 3, 0);
         row.addView(ed);
 
@@ -206,7 +231,7 @@ public class MainActivity extends Activity
         view = new TextView(this, null, 0, R.style.EditableViewStyle);
         possibleJobViews.add(view);
         row.addView(view);
-        
+
         ed = new EditableView(this, name3, 2, 0);
         row.addView(ed);
 
@@ -214,10 +239,12 @@ public class MainActivity extends Activity
         speedometerViews.add(view);
         row.addView(view);
 
-        table.addView(row, table.getChildCount()-1);
+        table.addView(row, table.getChildCount() - 1);
 
         ScrollView sv = (ScrollView)findViewById(R.id.scroll);
         sv.scrollTo(0, table.getBottom());
+        
+        refreshVisibility();
     }
 
     public int numberOfRows()
@@ -260,34 +287,20 @@ public class MainActivity extends Activity
                              + pathList.getFuelRate()
                              + "/100="
                              + pathList.getFuelCity()
-                             + (!pathList.hasIntercity()?("~"+Math.round(pathList.getFuelCity()))
-                             :""));
-                             
-        fuelMotohoursView.setVisibility(View.GONE);
-        fuelIntercityView.setVisibility(View.GONE);
-        fuelSumView.setVisibility(View.GONE);
-        if (pathList.hasIntercity())
-        {
-            fuelIntercityView.setText("Топливо(межгород):" 
-                                      + pathList.getIntercityPath()
-                                      + "x"
-                                      + pathList.getFuelRate()
-                                      + "/100-15%="
-                                      + pathList.getFuelIntercity());
-            fuelIntercityView.setVisibility(View.VISIBLE);
-            fuelSumView.setVisibility(View.VISIBLE);
-        }
-        if (pathList.hasMotohours())
-        {
-            fuelMotohoursView.setText("Топливо(моточасы):" 
-                                      + pathList.getFullMotohours()
-                                      + "x"
-                                      + pathList.getMotohourRate()
-                                      + "="
-                                      + pathList.getFuelMotohours());
-            fuelMotohoursView.setVisibility(View.VISIBLE);
-            fuelSumView.setVisibility(View.VISIBLE);
-        }
+                             + (!pathList.hasIntercity() ?("~" + Math.round(pathList.getFuelCity()))
+                             : ""));
+        fuelIntercityView.setText("Топливо(межгород):" 
+                                  + pathList.getIntercityPath()
+                                  + "x"
+                                  + pathList.getFuelRate()
+                                  + "/100-15%="
+                                  + pathList.getFuelIntercity());
+        fuelMotohoursView.setText("Топливо(моточасы):" 
+                                  + pathList.getFullMotohours()
+                                  + "x"
+                                  + pathList.getMotohourRate()
+                                  + "="
+                                  + pathList.getFuelMotohours());
         fuelSumView.setText("Топливо(сумма):" 
                             + pathList.getFuelCity()
                             + (pathList.hasIntercity() ? "+"
@@ -298,7 +311,6 @@ public class MainActivity extends Activity
                             + pathList.getConsumedFuel()
                             + "~"
                             + Math.round(pathList.getConsumedFuel()));
-                            
         oilSumView.setText("Масло:" 
                            + pathList.getConsumedFuel()
                            + "x"
@@ -308,13 +320,106 @@ public class MainActivity extends Activity
         endFuelView.setText("Осталось топлива:" + pathList.getEndFuel());
         endOilView.setText("Осталось масла:" + pathList.getEndOil());
         percentageView.setText("Процент использования:" + pathList.getPercentage() * 100 + "%");
-        
+
         refreshVisibility();
     }
-    
+
     protected void refreshVisibility()
     {
-        
+        fuelIntercityView.setVisibility(View.GONE);
+        fuelMotohoursView.setVisibility(View.GONE);
+        fuelSumView.setVisibility(View.GONE);
+        if (pathList.hasMotohours())
+        {
+            for (int i = STATIC_FIELDS_COUNT; i < views.size(); i++)
+            {
+                if ((i - (STATIC_FIELDS_COUNT - 1)) % 3 == 0)
+                {
+                    views.get(i).setVisibility(View.VISIBLE);
+                }
+            }
+            view16.setVisibility(View.VISIBLE);
+            fullMotohoursView.setVisibility(View.VISIBLE);
+            fuelMotohoursView.setVisibility(View.VISIBLE);
+            fuelSumView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            for (int i = STATIC_FIELDS_COUNT; i < views.size(); i++)
+            {
+                if ((i - (STATIC_FIELDS_COUNT - 1)) % 3 == 0)
+                {
+                    views.get(i).setVisibility(View.GONE);
+                }
+            }
+            view16.setVisibility(View.GONE);
+            fullMotohoursView.setVisibility(View.GONE);
+        }
+        if (pathList.hasWeight())
+        {
+            for (int i = STATIC_FIELDS_COUNT; i < views.size(); i++)
+            {
+                if ((i - (STATIC_FIELDS_COUNT - 1)) % 3 == 2)
+                {
+                    views.get(i).setVisibility(View.VISIBLE);
+                }
+            }
+            for (int i = 0; i < loadedPathViews.size(); i++)
+            {
+                loadedPathViews.get(i).setVisibility(View.VISIBLE);
+                factJobViews.get(i).setVisibility(View.VISIBLE);
+                possibleJobViews.get(i).setVisibility(View.VISIBLE);
+            }
+            view6.setVisibility(View.VISIBLE);
+            view12.setVisibility(View.VISIBLE);
+            view14.setVisibility(View.VISIBLE);
+            view15.setVisibility(View.VISIBLE);
+            fullLoadedPathView.setVisibility(View.VISIBLE);
+            fullWeightView.setVisibility(View.VISIBLE);
+            fullPossibleJobView.setVisibility(View.VISIBLE);
+            fullFactJobView.setVisibility(View.VISIBLE);
+            percentageView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            for (int i = STATIC_FIELDS_COUNT; i < views.size(); i++)
+            {
+                if ((i - (STATIC_FIELDS_COUNT - 1)) % 3 == 2)
+                {
+                    views.get(i).setVisibility(View.GONE);
+                }
+            }
+            for (int i = 0; i < loadedPathViews.size(); i++)
+            {
+                loadedPathViews.get(i).setVisibility(View.GONE);
+                factJobViews.get(i).setVisibility(View.GONE);
+                possibleJobViews.get(i).setVisibility(View.GONE);
+            }
+            view6.setVisibility(View.GONE);
+            view12.setVisibility(View.GONE);
+            view14.setVisibility(View.GONE);
+            view15.setVisibility(View.GONE);
+            fullLoadedPathView.setVisibility(View.GONE);
+            fullWeightView.setVisibility(View.GONE);
+            fullPossibleJobView.setVisibility(View.GONE);
+            fullFactJobView.setVisibility(View.GONE);
+            percentageView.setVisibility(View.GONE);
+        }
+        if (pathList.hasIntercity())
+        {
+            fuelIntercityView.setVisibility(View.VISIBLE);
+            fuelSumView.setVisibility(View.VISIBLE);
+        }
+        if (pathList.hasOil())
+        {
+            oilSumView.setVisibility(View.VISIBLE);
+            endOilView.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            oilSumView.setVisibility(View.GONE);
+            endOilView.setVisibility(View.GONE);
+        }
     }
 
     protected void saveData()
@@ -347,7 +452,7 @@ public class MainActivity extends Activity
     protected void clearScreen()
     {
         views.get(0).setChoosed(true);
-        for(int i = views.size() - 1; i >= 0 ; i--)
+        for (int i = views.size() - 1; i >= 0 ; i--)
         {
             if (i < STATIC_FIELDS_COUNT)
             {
@@ -361,7 +466,7 @@ public class MainActivity extends Activity
         }
 
         Iterator<TextView> s = speedometerViews.iterator();
-        while(s.hasNext())
+        while (s.hasNext())
         {
             TextView view = s.next();
             ((ViewGroup)view.getParent()).removeView(view);
@@ -369,7 +474,7 @@ public class MainActivity extends Activity
         speedometerViews.clear();
 
         Iterator<TextView> l = loadedPathViews.iterator();
-        while(l.hasNext())
+        while (l.hasNext())
         {
             TextView view = l.next();
             ((ViewGroup)view.getParent()).removeView(view);
@@ -377,7 +482,7 @@ public class MainActivity extends Activity
         loadedPathViews.clear();
 
         Iterator<TextView> f = factJobViews.iterator();
-        while(f.hasNext())
+        while (f.hasNext())
         {
             TextView view = f.next();
             ((ViewGroup)view.getParent()).removeView(view);
@@ -385,14 +490,14 @@ public class MainActivity extends Activity
         factJobViews.clear();
 
         Iterator<TextView> p = possibleJobViews.iterator();
-        while(p.hasNext())
+        while (p.hasNext())
         {
             TextView view = p.next();
             ((ViewGroup)view.getParent()).removeView(view);
         }
         possibleJobViews.clear();
 
-        table.removeViews(1, table.getChildCount()-2);
+        table.removeViews(1, table.getChildCount() - 2);
 
         fullPathView.setText("");
         fuelCityView.setText("");
@@ -411,6 +516,12 @@ public class MainActivity extends Activity
         pathList = new PathList();
     }
 
+    protected void showAboutDialog()
+    {
+        DialogFragment newFragment = new AboutDialogFragment();
+        newFragment.show(getFragmentManager(), "about");
+    }
+    
     @Override
     protected void onDestroy()
     {
@@ -432,22 +543,28 @@ public class MainActivity extends Activity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         // Handle presses on the action bar items
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.reset:
                 clearScreen();
                 return true;
             case R.id.done:
                 donePressed();
+                return true;
+            case R.id.about:
+                showAboutDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

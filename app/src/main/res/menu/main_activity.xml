@@ -6,4 +6,7 @@
     <item
         android:id="@+id/done"
         android:title="Готово"/>
+    <item
+        android:id="@+id/about"
+        android:title="@string/about_title"/>
 </menu>
