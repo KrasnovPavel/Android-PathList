@@ -5,7 +5,6 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
-import android.text.*;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;

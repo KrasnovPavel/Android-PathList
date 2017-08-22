@@ -6,5 +6,5 @@
     <string name="main_title">Путевой лист</string>
     <string name="close">Закрыть</string>
     <string name="about_title">О программе</string>
-    <string name="about_text">Разработчик: Павел Краснов\nEmail: krasnovpavel0@gmail.com\nSource:github.com\</string>
+    <string name="about_text">Разработчик: Павел Краснов\nEmail: krasnovpavel0@gmail.com\nSource code: github.com/KrasnovPavel/Android-PathList</string>
 </resources>
