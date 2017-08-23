@@ -191,7 +191,7 @@ public class MainActivity extends Activity
         int cvn = choosedViewNumber();
         checkDot();
         previousButton.setEnabled(cvn != 0);
-        selectButton.setEnabled(cvn >= STATIC_FIELDS_COUNT);
+        selectButton.setEnabled(getChoosedView().needSpecialSelect());
         selectButton.setChecked(getChoosedView().isSpecialSelected());
     }
 
@@ -213,14 +213,14 @@ public class MainActivity extends Activity
         String name3 = "Рейс #" + String.valueOf(numberOfRows()) 
         + ": отработано моточасов";
 
-        EditableView ed = new EditableView(this, name1, 3, 0);
+        EditableView ed = new EditableView(this, name1, 3, 0, true);
         row.addView(ed);
 
         TextView view = new TextView(this, null, 0, R.style.EditableViewStyle);
         loadedPathViews.add(view);
         row.addView(view);
 
-        ed = new EditableView(this, name2, 2, 1);
+        ed = new EditableView(this, name2, 2, 1, false);
         row.addView(ed);
 
         view = new TextView(this, null, 0, R.style.EditableViewStyle);
@@ -231,7 +231,7 @@ public class MainActivity extends Activity
         possibleJobViews.add(view);
         row.addView(view);
 
-        ed = new EditableView(this, name3, 2, 0);
+        ed = new EditableView(this, name3, 2, 0, false);
         row.addView(ed);
 
         view = new TextView(this, null, 0, R.style.EditableViewStyle);
@@ -271,7 +271,6 @@ public class MainActivity extends Activity
             p.next().setText(format(pp.next()));
             l.next().setText(format(pl.next()));
         }
-
 
         fullPathView.setText(pathList.getFullPath() + "");
         fullWeightView.setText(format(pathList.getFullWeight()));

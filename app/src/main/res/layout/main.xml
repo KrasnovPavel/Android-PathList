@@ -47,7 +47,6 @@
                         android:id="@+id/viewSpeedometer"
                         android:layout_weight="2"
                         app:numberBefore="6"
-                        app:numberAfter="0"
                         app:viewName="Спидометр"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -56,7 +55,6 @@
                         android:id="@+id/viewBeginFuel"
                         android:layout_weight="1"
                         app:numberBefore="3"
-                        app:numberAfter="0"
                         app:viewName="Топливо перед выездом"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -65,7 +63,6 @@
                         android:id="@+id/addFuelView"
                         android:layout_weight="1"
                         app:numberBefore="3"
-                        app:numberAfter="0"
                         app:viewName="Топливо получено"/>
 
                 </LinearLayout>
@@ -90,7 +87,6 @@
                         android:id="@+id/addOilView"
                         android:layout_weight="1"
                         app:numberBefore="2"
-                        app:numberAfter="0"
                         app:viewName="Масло получено"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -422,6 +418,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="далее"
+                android:layout_rowSpan="2"
+                android:layout_gravity="fill"
                 android:id="@+id/buttonNext"
                 android:onClick="onNextButtonClick"/>
 
@@ -447,14 +445,6 @@
                 android:text="."
                 android:id="@+id/buttonDot"
                 android:onClick="onNumberButtonClick"/>
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="готово"
-                android:id="@+id/buttonDone"
-                android:onClick="onDoneButtonClick"/>
-
         </GridLayout>
 
     </LinearLayout>

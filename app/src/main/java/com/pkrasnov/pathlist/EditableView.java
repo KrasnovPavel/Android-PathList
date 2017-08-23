@@ -14,6 +14,7 @@ public class EditableView extends TextView
 {
     protected boolean bIsChoosed;
     protected boolean bSpecialSelect;
+    protected boolean bNeedSpecialSelect;
     protected String name;
     protected int numberBefore, numberAfter;
     protected float value;
@@ -74,7 +75,8 @@ public class EditableView extends TextView
         try{
             name = a.getString(R.styleable.EditableView_viewName);
             numberBefore = a.getInteger(R.styleable.EditableView_numberBefore, 3);
-            numberAfter = a.getInteger(R.styleable.EditableView_numberAfter, 3);
+            numberAfter = a.getInteger(R.styleable.EditableView_numberAfter, 0);
+            bNeedSpecialSelect = a.getBoolean(R.styleable.EditableView_needSpecialSelect, false);
         }
         finally{
             a.recycle();
@@ -93,12 +95,13 @@ public class EditableView extends TextView
         this(context, null, R.attr.EditableViewTheme);
     }
     
-    public EditableView(Context context, String name, int numberBefore, int numberAfter) 
+    public EditableView(Context context, String name, int numberBefore, int numberAfter, boolean bNeedSpecialSelect) 
     {
         this(context, null, R.attr.EditableViewTheme);
         this.name = name;
         this.numberBefore = numberBefore;
         this.numberAfter = numberAfter;
+        this.bNeedSpecialSelect = bNeedSpecialSelect;
     }
     
     public EditableView(Context context, AttributeSet attrs) 
@@ -110,6 +113,11 @@ public class EditableView extends TextView
     {
         super(context, attrs, defStyleAttr, defStyleRes);
         initAttrs(context, attrs);
+    }
+    
+    public boolean needSpecialSelect()
+    {
+        return bNeedSpecialSelect;
     }
 
     public String getName()

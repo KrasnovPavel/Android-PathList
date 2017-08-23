@@ -8,8 +8,8 @@ android {
         applicationId "com.pkrasnov.pathlist"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 8
-        versionName "1.42"
+        versionCode 9
+        versionName "1.43"
     }
     buildTypes {
         release {
