@@ -64,8 +64,6 @@ public class PathList
 
             fuelCity = Math.round(cityPath * fuelRate) / 100f;
             fuelIntercity = Math.round(intercityPath * fuelRate * 0.85f) / 100f;
-            endFuel = beginFuel + addedFuel - Math.round(consumedFuel);
-            endOil = Math.round((beginOil + addedOil - consumedOil) * 100) / 100f;
             fullPath = cityPath + intercityPath;
             
             factJobs.clear();
@@ -90,6 +88,8 @@ public class PathList
             fuelMotohours = Math.round(fullMutohours * motohourRate * 10f) / 10f;
             consumedFuel = Math.round((fuelCity + fuelIntercity + fuelMotohours) * 100) / 100f;
             consumedOil  = Math.round(consumedFuel * oilRate) / 100f;
+            endFuel = beginFuel + addedFuel - Math.round(consumedFuel);
+            endOil = Math.round((beginOil + addedOil - consumedOil) * 100) / 100f;
             percentage = Math.round(fullFactJob / fullPossibleJob * 100f) / 100f;
             fullFactJob = Math.round(fullFactJob * 10) / 10f;
             fullPossibleJob = Math.round(fullPossibleJob * 10) / 10;
