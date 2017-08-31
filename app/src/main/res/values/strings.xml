@@ -6,5 +6,5 @@
     <string name="main_title">Путевой лист</string>
     <string name="close">Закрыть</string>
     <string name="about_title">О программе</string>
-    <string name="about_text">Разработчик: Павел Краснов\nEmail: krasnovpavel0@gmail.com\nSource code: github.com/KrasnovPavel/Android-PathList\nЛицензия: MIT</string>
+    <string name="about_text">Калькулятор путевых листов (форма 16а)\nВерсия: 1.44Разработчик: Павел Краснов\nEmail: krasnovpavel0@gmail.com\nSource code: github.com/KrasnovPavel/Android-PathList\nЛицензия: MIT</string>
 </resources>
