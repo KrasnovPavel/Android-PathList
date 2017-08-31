@@ -213,14 +213,14 @@ public class MainActivity extends Activity
         String name3 = "Рейс #" + String.valueOf(numberOfRows()) 
         + ": отработано моточасов";
 
-        EditableView ed = new EditableView(this, name1, 3, 0, true);
+        EditableView ed = new EditableView(this, name1, true);
         row.addView(ed);
 
         TextView view = new TextView(this, null, 0, R.style.EditableViewStyle);
         loadedPathViews.add(view);
         row.addView(view);
 
-        ed = new EditableView(this, name2, 2, 1, false);
+        ed = new EditableView(this, name2, false);
         row.addView(ed);
 
         view = new TextView(this, null, 0, R.style.EditableViewStyle);
@@ -231,7 +231,7 @@ public class MainActivity extends Activity
         possibleJobViews.add(view);
         row.addView(view);
 
-        ed = new EditableView(this, name3, 2, 0, false);
+        ed = new EditableView(this, name3, false);
         row.addView(ed);
 
         view = new TextView(this, null, 0, R.style.EditableViewStyle);

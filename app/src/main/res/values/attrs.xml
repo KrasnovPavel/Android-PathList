@@ -2,8 +2,6 @@
 <resources> 
     <declare-styleable name="EditableView">
         <attr name="viewName" format="string"/>
-        <attr name="numberBefore" format="integer"/>
-        <attr name="numberAfter"  format="integer"/>
         <attr name="needSpecialSelect" format="boolean"/>
     </declare-styleable>
     

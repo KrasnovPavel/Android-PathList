@@ -46,7 +46,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/viewSpeedometer"
                         android:layout_weight="2"
-                        app:numberBefore="6"
                         app:viewName="Спидометр"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -54,7 +53,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/viewBeginFuel"
                         android:layout_weight="1"
-                        app:numberBefore="3"
                         app:viewName="Топливо перед выездом"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -62,7 +60,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/addFuelView"
                         android:layout_weight="1"
-                        app:numberBefore="3"
                         app:viewName="Топливо получено"/>
 
                 </LinearLayout>
@@ -77,8 +74,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/viewBeginOil"
                         android:layout_weight="1"
-                        app:numberBefore="2"
-                        app:numberAfter="2"
                         app:viewName="Масло перед выездом"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -86,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/addOilView"
                         android:layout_weight="1"
-                        app:numberBefore="2"
                         app:viewName="Масло получено"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -94,8 +88,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/fuelConsumeView"
                         android:layout_weight="1"
-                        app:numberBefore="2"
-                        app:numberAfter="1"
                         app:viewName="Расход топлива"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -103,8 +95,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/OilConsumeView"
                         android:layout_weight="1"
-                        app:numberBefore="1"
-                        app:numberAfter="2"
                         app:viewName="Расход масла"/>
 
                     <com.pkrasnov.pathlist.EditableView
@@ -112,8 +102,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/MotohourRateView"
                         android:layout_weight="1"
-                        app:numberBefore="2"
-                        app:numberAfter="1"
                         app:viewName="Расход топлива на моточас"/>
                     
                     <com.pkrasnov.pathlist.EditableView
@@ -121,8 +109,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/MaxWeightView"
                         android:layout_weight="1"
-                        app:numberBefore="2"
-                        app:numberAfter="1"
                         app:viewName="Максимальный вес груза"/>
 
                 </LinearLayout>
@@ -131,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:id="@+id/table">
-
+ 
                     <TableRow>
 
                         <TextView

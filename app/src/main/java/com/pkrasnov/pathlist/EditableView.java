@@ -16,7 +16,6 @@ public class EditableView extends TextView
     protected boolean bSpecialSelect;
     protected boolean bNeedSpecialSelect;
     protected String name;
-    protected int numberBefore, numberAfter;
     protected float value;
     protected static List<EditableView> allViews;
     protected static TextView nameView;
@@ -74,8 +73,6 @@ public class EditableView extends TextView
                        0, 0);
         try{
             name = a.getString(R.styleable.EditableView_viewName);
-            numberBefore = a.getInteger(R.styleable.EditableView_numberBefore, 3);
-            numberAfter = a.getInteger(R.styleable.EditableView_numberAfter, 0);
             bNeedSpecialSelect = a.getBoolean(R.styleable.EditableView_needSpecialSelect, false);
         }
         finally{
@@ -95,12 +92,10 @@ public class EditableView extends TextView
         this(context, null, R.attr.EditableViewTheme);
     }
     
-    public EditableView(Context context, String name, int numberBefore, int numberAfter, boolean bNeedSpecialSelect) 
+    public EditableView(Context context, String name, boolean bNeedSpecialSelect) 
     {
         this(context, null, R.attr.EditableViewTheme);
         this.name = name;
-        this.numberBefore = numberBefore;
-        this.numberAfter = numberAfter;
         this.bNeedSpecialSelect = bNeedSpecialSelect;
     }
     
@@ -123,16 +118,6 @@ public class EditableView extends TextView
     public String getName()
     {
         return name;
-    }
-    
-    public int getNumberBefore()
-    {
-        return numberBefore;
-    }
-
-    public int getNumberAfter()
-    {
-        return numberAfter;
     }
 
     @Override
@@ -180,34 +165,14 @@ public class EditableView extends TextView
     
     public void addChar(String ch)
     {
-        int dotPos = getText().toString().indexOf(".");
-        int numBefore, numAfter;
-        if (dotPos == -1)
-        {
-            numBefore = numberBefore - getText().length();
-            numAfter  = numberAfter;
-        }
-        else
-        {
-            numBefore = numberBefore - dotPos + 1;
-            numAfter  = numberAfter - (getText().length() - dotPos) + 1;
-        }
-
         if (ch.equals("."))
         {   
-            if (numBefore == numberBefore && numberAfter > 0 && !hasDot()) setText(getText() + "0" + ch);
-            if (numberAfter > 0 && !hasDot()) setText(getText() + ch);
+            if (value == 0 && !hasDot()) setText("0.");
+            else if (!hasDot()) setText(getText() + ch);
         }
         else
         {
-            if (dotPos == -1)
-            {
-                if (numBefore > 0) setText(getText() + ch);
-            }
-            else
-            {
-                if (numAfter > 0) setText(getText() + ch);
-            }
+            setText(getText() + ch);
         }
         
         updateValue();
@@ -220,7 +185,7 @@ public class EditableView extends TextView
     
     public boolean needDot()
     {
-        return !(hasDot() || numberAfter == 0);
+        return !hasDot();
     }
     
     public void removeChar()
@@ -268,10 +233,9 @@ public class EditableView extends TextView
             this.value = 0f;
             setText("");
         }
-        else if (Math.pow(10, numberBefore) > value)
+        else
         {
-            double shift = Math.pow(10, numberAfter);
-            this.value = Math.round(value * shift) / (float)shift;
+            this.value = value;
             setText(format(this.value));
         }
     }
